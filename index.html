@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tracalorie</title>
+  <link rel="shortcut icon" href="#">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="/assets/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
+  <link href="/assets/fontawesome/css/solid.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <header>
+    <nav class="navbar bg-success text-light">
+      <div class="container-fluid mx-5 py-2">
+        <div class="fs-1">
+          <i class="fa-solid fa-utensils"></i>
+          <span class="navbar-brand mb-0 fs-1 text-light">Tracalorie</span>
+        </div>
+        <div>
+          <button id="set-limit" class="btn btn-outline-light" data-bs-toggle="modal"
+            data-bs-target="#set-limit-modal">Set Daily Limit</button>
+          <button id="reset" class="btn btn-outline-light ms-2">Reset Day</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Info / Stats     -->
+    <section>
+      <div class="mx-5 mt-5">
+        <div class="row gy-3 my-3">
+          <div class="col-md-6">
+            <div class="card bg-dark text-light">
+              <div class="card-body text-center my-3">
+                <div id="calories-limit" class="fw-bold fs-1"></div>
+                <div class="fs-2">Daily Calorie Limit</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card bg-success text-light">
+              <div class="card-body text-center my-3">
+                <div id="calories-total" class="fw-bold fs-1"></div>
+                <div class="fs-2">Gain/Loss</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row gy-3 my-3">
+          <div class="col-md-4">
+            <div class="card bg-secondary-subtle">
+              <div class="card-body text-center my-3">
+                <div id="calories-consumed" class="fw-bold fs-1"></div>
+                <div class="fs-2">Calories Consumed</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card bg-secondary-subtle">
+              <div class="card-body text-center my-3">
+                <div id="calories-burned" class="fw-bold fs-1"></div>
+                <div class="fs-2">Calories Burned</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card bg-secondary-subtle text-dark">
+              <div class="card-body text-center my-3">
+                <div id="calories-remaining" class="fw-bold fs-1"></div>
+                <div class="fs-2">Calories Remaining</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- Progress -->
+    <section>
+      <div class="progress m-5" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0"
+        aria-valuemax="100">
+        <div id="calories-progress" class="progress-bar bg-success" style="width: 25%"></div>
+      </div>
+    </section>
+
+    <!-- Add Items -->
+    <section>
+      <div class="m-5">
+        <div class="row gy-3">
+          <div class="col-md-6">
+
+            <!-- Filter Meals -->
+            <input id="filter-meals" class="form-control" placeholder="Filter Meals..." />
+
+            <div class="accordion mt-5">
+              <div class="accordion-item border-0">
+                <div class="accordion-header d-flex justify-content-between border-start border-3 border-success ps-3">
+                  <h2>Meals / Food Items</h2>
+                  <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#panel-left"
+                    aria-expanded="true">
+                    + Add Meal
+                  </button>
+
+                </div>
+                <div id="panel-left" class="accordion-collapse collapse show">
+                  <div class="accordion-body px-0">
+                    <div class="card px-3 bg-secondary-subtle">
+                      <form id="meal-form" action="">
+                        <input class="form-control my-3" placeholder="Enter Meal or Item" name="meal" />
+                        <input type="number" class="form-control my-3" placeholder="Enter Calories" name="calories" />
+                        <button type="submit" class="btn btn-success mb-3">Add Meal Item</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Meal Items -->
+            <div id="meal-items" class="d-flex flex-column gy-3">
+              <div class="border rounded my-3 p-3 d-flex justify-content-between align-items-center">
+                <span class="fs-4">Breakfast</span>
+                <span class="bg-success text-light fs-4 fw-bold px-5 py-2 rounded">350</span>
+                <button class="btn btn-danger"><i class="bi bi-x-lg"></i></button>
+              </div>
+              <div class="border rounded my-3 p-3 d-flex justify-content-between align-items-center">
+                <span class="fs-4">Lunch</span>
+                <span class="bg-success text-light fs-4 fw-bold px-5 py-2 rounded">620</span>
+                <button class="btn btn-danger"><i class="bi bi-x-lg"></i></button>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-6">
+            <!-- Filter Workouts -->
+            <input id="filter-workouts" class="form-control" placeholder="Filter Workouts..." />
+            <div class="accordion mt-5">
+              <div class="accordion-item border-0">
+                <div class="accordion-header d-flex justify-content-between border-start border-3 ps-3 border-warning">
+                  <h2>Workouts</h2>
+                  <button class="btn btn-warning text-light" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panel-right" aria-expanded="true">
+                    + Add Workout
+                  </button>
+
+                </div>
+                <div id="panel-right" class="accordion-collapse collapse show">
+                  <div class="accordion-body px-0">
+                    <div class="card px-3 bg-secondary-subtle">
+                      <form id="workout-form" action="">
+                        <input class="form-control my-3" placeholder="Enter Workout or Item" name="workout" />
+                        <input class="form-control my-3" placeholder="Enter Calories" name="calories" />
+                        <button type="submit" class="btn btn-success mb-3">Add Workout Item</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Workout Items -->
+            <div id="workout-items" class="d-flex flex-column gy-3">
+              <div class="border rounded my-3 p-3 d-flex justify-content-between align-items-center">
+                <span class="fs-4">Treadmill 1 hour</span>
+                <span class="bg-warning text-light fs-4 fw-bold px-5 py-2 rounded">400</span>
+                <button class="btn btn-danger"><i class="bi bi-x-lg"></i></button>
+              </div>
+              <div class="border rounded my-3 p-3 d-flex justify-content-between align-items-center">
+                <span class="fs-4">Bike 90 minutes</span>
+                <span class="bg-warning text-light fs-4 fw-bold px-5 py-2 rounded">500</span>
+                <button class="btn btn-danger"><i class="bi bi-x-lg"></i></button>
+              </div>
+            </div>
+
+            <!--  -->
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="set-limit-modal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content bg-success text-light">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">New Daily Limit</h1>
+            <button type="button" class="btn-close btn-success" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="set-limit-form">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="new-limit" class="col-form-label">Calories:</label>
+                <input type="number" class="form-control" id="new-limit">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+              <button id="limit-submit" type="submit" class="btn btn-light text-success" data-bs-dismiss="modal">Set
+                Limit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
